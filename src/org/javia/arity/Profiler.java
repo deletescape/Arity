@@ -18,16 +18,17 @@ package org.javia.arity;
  * <p>
  * Usage: java -jar arity.jar
  */
-public class UnitTest {
+public class Profiler {
+  private static final String[] PROFILE_CASES = { "(100.5 + 20009.999)*(7+4+3)/(5/2)^3!)*2", "fun1(x)=(x+2)*(x+3)",
+      "otherFun(x)=(fun1(x-1)*x+1)*(fun1(2-x)+10)", "log(x+30.5, 3)^.7*sin(x+.5)" };
+
   /**
    * Takes a single command-line argument, an expression; compiles and prints it.
-   * <p>
-   * Without arguments, runs the unit tests.
    * 
    * @throws SyntaxException
    *           if there are errors compiling the expression.
    */
-  public static void main(String argv[]) throws SyntaxException, ArityException {
+  public static void main(String[] argv) throws SyntaxException, ArityException {
     int size = argv.length;
     if (size == 0) {
       System.out.println("Unit testing implementation has been removed / converted to JUnit tests in this version!");
@@ -44,11 +45,11 @@ public class UnitTest {
       }
     } else {
       Symbols symbols = new Symbols();
-      for (int i = 0; i < size; ++i) {
-        FunctionAndName fan = symbols.compileWithName(argv[i]);
+      for (String arg : argv) {
+        FunctionAndName fan = symbols.compileWithName(arg);
         symbols.define(fan);
         Function f = fan.function;
-        System.out.println(argv[i] + " : " + f);
+        System.out.println(arg + " : " + f);
       }
     }
   }
@@ -64,7 +65,7 @@ public class UnitTest {
     long t2 = System.currentTimeMillis();
     System.out.println("compilation time: " + (t2 - t1) + " us");
 
-    double args[] = new double[f.arity()];
+    double[] args = new double[f.arity()];
     t1 = System.currentTimeMillis();
     for (int i = 0; i < 100000; ++i) {
       f.eval(args);
@@ -74,16 +75,12 @@ public class UnitTest {
     System.out.println("execution time: " + (delta > 100 ? "" + delta / 100. + " us" : "" + delta + " ns"));
   }
 
-  private static final String profileCases[] = { "(100.5 + 20009.999)*(7+4+3)/(5/2)^3!)*2", "fun1(x)=(x+2)*(x+3)",
-      "otherFun(x)=(fun1(x-1)*x+1)*(fun1(2-x)+10)", "log(x+30.5, 3)^.7*sin(x+.5)" };
-
   private static void profile() {
-    String cases[] = profileCases;
     Symbols symbols = new Symbols();
     try {
-      for (int i = 0; i < cases.length; ++i) {
-        symbols.define(symbols.compileWithName(cases[i]));
-        profile(symbols, cases[i]);
+      for (String cas : PROFILE_CASES) {
+        symbols.define(symbols.compileWithName(cas));
+        profile(symbols, cas);
       }
     } catch (SyntaxException e) {
       throw new Error("" + e);
