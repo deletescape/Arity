@@ -175,54 +175,12 @@ public class UnitTest {
         check(Util.shortApprox(-1.235, 0.02), -1.24);
         check(Util.shortApprox(-1.235, 0.4),  -1.2000000000000002);
 
-        check(testRecursiveEval());
-
-        check(testFrame());
-
         if (!allOk) {
             System.out.println("\n*** Some tests FAILED ***\n");
             System.exit(1);
         } else {
             System.out.println("\n*** All tests passed OK ***\n");
         }
-    }
-
-    static boolean testFrame() {
-        boolean ok = true;
-        try {
-            Symbols symbols = new Symbols();
-            symbols.define("a", 1);
-            ok = ok && symbols.eval("a") == 1;
-        
-            symbols.pushFrame();
-            ok = ok && symbols.eval("a") == 1;
-            symbols.define("a", 2);
-            ok = ok && symbols.eval("a") == 2;
-            symbols.define("a", 3);
-            ok = ok && symbols.eval("a") == 3;            
-
-            symbols.popFrame();
-            ok = ok && symbols.eval("a") == 1;
-            
-            // ----
-
-            symbols = new Symbols();
-            symbols.pushFrame();
-            symbols.add(Symbol.makeArg("base", 0));
-            symbols.add(Symbol.makeArg("x", 1));
-            ok = ok && symbols.lookupConst("x").op == VM.LOAD1;
-            symbols.pushFrame();
-            ok = ok && symbols.lookupConst("base").op == VM.LOAD0;
-            ok = ok && symbols.lookupConst("x").op == VM.LOAD1;
-            symbols.popFrame();
-            ok = ok && symbols.lookupConst("base").op == VM.LOAD0;
-            ok = ok && symbols.lookupConst("x").op == VM.LOAD1;
-            symbols.popFrame();
-            ok = ok && symbols.lookupConst("x").op == VM.LOAD0;            
-        } catch (SyntaxException e) {
-            return false;
-        }
-        return ok;
     }
 
     static boolean equal(Complex a, Complex b) {
@@ -267,42 +225,4 @@ public class UnitTest {
 
     static boolean allOk = true;
     static int checkCounter = 0;
-
-    static boolean testRecursiveEval() {
-        Symbols symbols = new Symbols();
-        symbols.define("myfun", new MyFun());
-        try {
-            Function f = symbols.compile("1+myfun(x)");
-            return 
-                f.eval(0) == 2 && 
-                f.eval(1) == 1 && 
-                f.eval(2) == 0 && 
-                f.eval(3) == -1;
-        } catch (SyntaxException e) {
-            System.out.println("" + e);
-            allOk = false;
-            return false;
-        }
-    }
-}
-
-class MyFun extends Function {
-    Symbols symbols = new Symbols();
-    Function f;
-
-    MyFun() {
-        try {
-            f = symbols.compile("1-x");
-        } catch (SyntaxException e) {
-            System.out.println("" + e);
-        }
-    }
-
-    public double eval(double x) {
-        return f.eval(x);
-    }
-
-    public int arity() {
-        return 1;
-    }
 }
