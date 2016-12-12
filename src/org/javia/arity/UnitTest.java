@@ -34,18 +34,6 @@ class EvalCase {
     }
 }
 
-class SizeCase {
-    public SizeCase(int size, String v, String s) {
-        this.size = size;
-        this.val = v;
-        this.res = s;
-    }
-    
-    public int size;
-    public String val;
-    public String res;
-}
-
 /**
    Runs unit-tests.<p>
    Usage: java -jar arity.jar
