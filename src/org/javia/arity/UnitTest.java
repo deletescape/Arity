@@ -115,13 +115,6 @@ public class UnitTest {
 
     static void runUnitTests() {
         checkCounter = 0;
-        
-        check(Math.log(-1), Double.NaN);
-        check(Math.log(-0.03), Double.NaN);
-        check(MoreMath.intLog10(-0.03), 0);
-        check(MoreMath.intLog10(0.03), -2);
-        check(MoreMath.intExp10(3), 1000);
-        check(MoreMath.intExp10(-1), 0.1);
 
         check(Util.shortApprox( 1.235, 0.02),  1.24);
         check(Util.shortApprox( 1.235, 0.4),   1.2000000000000002);
