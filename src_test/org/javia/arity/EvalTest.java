@@ -157,35 +157,35 @@ public class EvalTest {
 
   @Test
   public void evalComplexCase1() throws SyntaxException {
-    assertThat(new Symbols().evalComplex("sqrt(-1)^2").toString(), is(new Complex(-1, 0).toString()));
-    assertThat(new Symbols().evalComplex("i").toString(), is(new Complex(0, 1).toString()));
-    assertThat(new Symbols().evalComplex("sqrt(-1)").toString(), is(new Complex(0, 1).toString()));
+    assertThat(new Symbols().evalComplex("sqrt(-1)^2"), is(new Complex(-1, 0)));
+    assertThat(new Symbols().evalComplex("i"), is(new Complex(0, 1)));
+    assertThat(new Symbols().evalComplex("sqrt(-1)"), is(new Complex(0, 1)));
   }
 
   @Test
   public void evalComplexCase2() throws SyntaxException {
-    assertThat(new Symbols().evalComplex("ln(-1)").toString(), is(new Complex(0, -Math.PI).toString()));
-    assertThat(new Symbols().evalComplex("i^i").toString(), is(new Complex(0.20787957635076193, 0).toString()));
-    assertThat(new Symbols().evalComplex("gcd(135-14i, 155+34i)").toString(), is(new Complex(12, -5).toString()));
+    assertThat(new Symbols().evalComplex("ln(-1)"), is(new Complex(0, -Math.PI)));
+    assertThat(new Symbols().evalComplex("i^i"), is(new Complex(0.20787957635076193, 0)));
+    assertThat(new Symbols().evalComplex("gcd(135-14i, 155+34i)"), is(new Complex(12, -5)));
 
   }
 
   @Test
   public void evalComplexCase3() throws SyntaxException {
-    assertThat(new Symbols().evalComplex("sign(2i)").toString(), is(new Complex(0, 1).toString()));
-    assertThat(new Symbols().evalComplex("sign(nan)").toString(), is(new Complex(Double.NaN, 0).toString()));
-    assertThat(new Symbols().evalComplex("sign(nan i)").toString(), is(new Complex(Double.NaN, 0).toString()));
-    assertThat(new Symbols().evalComplex("sign(0)").toString(), is(new Complex(0, 0).toString()));
+    assertThat(new Symbols().evalComplex("sign(2i)"), is(new Complex(0, 1)));
+    assertThat(new Symbols().evalComplex("sign(nan)"), is(new Complex(Double.NaN, 0)));
+    assertThat(new Symbols().evalComplex("sign(nan i)"), is(new Complex(Double.NaN, 0)));
+    assertThat(new Symbols().evalComplex("sign(0)"), is(new Complex(0, 0)));
   }
 
   @Test
   public void evalComplexCase4() throws SyntaxException {
-    assertThat(new Symbols().evalComplex("real(8.123)").toString(), is(new Complex(8.123, 0).toString()));
-    assertThat(new Symbols().evalComplex("imag(8.123)").toString(), is(new Complex(0, 0).toString()));
-    assertThat(new Symbols().evalComplex("real(1+3i)").toString(), is(new Complex(1, 0).toString()));
-    assertThat(new Symbols().evalComplex("imag(1+3i)").toString(), is(new Complex(3, 0).toString()));
-    assertThat(new Symbols().evalComplex("re(1+3i)").toString(), is(new Complex(1, 0).toString()));
-    assertThat(new Symbols().evalComplex("im(1+3i)").toString(), is(new Complex(3, 0).toString()));
+    assertThat(new Symbols().evalComplex("real(8.123)"), is(new Complex(8.123, 0)));
+    assertThat(new Symbols().evalComplex("imag(8.123)"), is(new Complex(0, 0)));
+    assertThat(new Symbols().evalComplex("real(1+3i)"), is(new Complex(1, 0)));
+    assertThat(new Symbols().evalComplex("imag(1+3i)"), is(new Complex(3, 0)));
+    assertThat(new Symbols().evalComplex("re(1+3i)"), is(new Complex(1, 0)));
+    assertThat(new Symbols().evalComplex("im(1+3i)"), is(new Complex(3, 0)));
   }
 
 }
