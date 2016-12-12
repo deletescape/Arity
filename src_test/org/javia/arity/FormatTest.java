@@ -87,6 +87,17 @@ public class FormatTest {
   }
 
   @Test
+  public void formatComplex() {
+    assertThat(Util.complexToString(new Complex(0, -1), 10, 1), is("-i"));
+    assertThat(Util.complexToString(new Complex(2.123, 0), 3, 0), is("2.1"));
+    assertThat(Util.complexToString(new Complex(0, 1.0000000000001), 20, 3), is("i"));
+    assertThat(Util.complexToString(new Complex(1, -1), 10, 1), is("1-i"));
+    assertThat(Util.complexToString(new Complex(1, 1), 10, 1), is("1+i"));
+    assertThat(Util.complexToString(new Complex(1.12, 1.12), 9, 0), is("1.12+1.1i"));
+    assertThat(Util.complexToString(new Complex(1.12345, -1), 7, 0), is("1.123-i"));
+  }
+
+  @Test
   public void sizeCase1() {
     assertThat(Util.sizeTruncate("1111111110", 9), is("1.11111E9"));
     assertThat(Util.sizeTruncate("1111111110", 10), is("1111111110"));

@@ -127,42 +127,7 @@ public class UnitTest {
 
     static void runUnitTests() {
         checkCounter = 0;
-
-        check(Util.doubleToString(Double.NEGATIVE_INFINITY, 5).equals("-Infinity"));
-        check(Util.doubleToString(Double.NaN, 5).equals("NaN"));
         
-        Complex c = new Complex();
-        Complex d = new Complex();
-        Complex e = new Complex();
-
-        check(Util.complexToString(c.set(0, -1), 10, 1).equals("-i"));
-        check(Util.complexToString(c.set(2.123, 0), 3, 0).equals("2.1"));
-        check(Util.complexToString(c.set(0, 1.0000000000001), 20, 3).equals("i"));
-        check(Util.complexToString(c.set(1, -1), 10, 1).equals("1-i"));
-        check(Util.complexToString(c.set(1, 1), 10, 1).equals("1+i"));
-        check(Util.complexToString(c.set(1.12, 1.12), 9, 0).equals("1.12+1.1i"));
-        check(Util.complexToString(c.set(1.12345, -1), 7, 0).equals("1.123-i"));
-        
-        check(c.set(-1, 0).pow(d.set(0, 1)), e.set(0.04321391826377226, 0));
-        check(c.set(-1, 0).pow(d.set(1, 1)), e.set(-0.04321391826377226, 0));
-
-        check(c.set(-1, 0).abs(), 1);
-        check(c.set(Math.E * Math.E, 0).log(), d.set(2, 0));
-        check(c.set(-1, 0).log(),              d.set(0, Math.PI));
-
-        check(c.set(2, 0).exp(),       d.set(Math.E*Math.E, 0));
-        check(c.set(0, Math.PI).exp(), d.set(-1, 0));
-        
-        check(MoreMath.lgamma(1), 0);
-        check(c.set(1, 0).lgamma(), d.set(0, 0));
-
-        check(c.set(0, 0).factorial(), d.set(1, 0));
-        check(c.set(1, 0).factorial(), d.set(1, 0));        
-        check(c.set(0, 1).factorial(), d.set(0.49801566811835596, -0.1549498283018106));
-        check(c.set(-2, 1).factorial(), d.set(-0.17153291990834815, 0.32648274821006623));
-        check(c.set(4, 0).factorial(), d.set(24, 0));
-        check(c.set(4, 3).factorial(), d.set(0.016041882741649555, -9.433293289755953));
-
         check(Math.log(-1), Double.NaN);
         check(Math.log(-0.03), Double.NaN);
         check(MoreMath.intLog10(-0.03), 0);
