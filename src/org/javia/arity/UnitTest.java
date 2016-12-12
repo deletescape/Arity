@@ -341,19 +341,6 @@ public class UnitTest {
         Function f = symbols.compile(str);
         System.out.println("\n" + str + ": " + f);
 
-        Runtime runtime = Runtime.getRuntime();        
-
-        runtime.gc();
-        /*
-        long m1 = runtime.freeMemory();
-        for (int i = 0; i < 200; ++i) {
-            symbols.compile(str);
-        }
-        long m2 = runtime.freeMemory();
-        System.out.println("compilation memory: " + (m1 - m2)/200 + " bytes");
-        */
-        
-        runtime.gc();
         long t1 = System.currentTimeMillis();
         for (int i = 0; i < 1000; ++i) {
             symbols.compile(str);
@@ -362,17 +349,6 @@ public class UnitTest {
         System.out.println("compilation time: " + (t2 - t1) + " us");
         
         double args[] = new double[f.arity()];
-        /*
-        runtime.gc();
-        m1 = runtime.freeMemory();
-        f.eval(args);
-        m2 = runtime.freeMemory();
-        if (m2 != m1) {
-            System.out.println("execution memory: " + (m1 - m2) + " bytes");
-        }
-        */
-  
-        runtime.gc();
         t1 = System.currentTimeMillis();
         for (int i = 0; i < 100000; ++i) {
             f.eval(args);
