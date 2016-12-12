@@ -569,4 +569,8 @@ public class Complex {
     private final Complex sqrt1z() {
         return set(1 - re*re + im*im, -2*re*im).sqrt();
     }
+    @Override
+    public boolean equals(Object obj) {
+    return obj!=null&&obj instanceof Complex&& ((Complex) obj).im == im&&((Complex) obj).re==re;
+    }
 }
